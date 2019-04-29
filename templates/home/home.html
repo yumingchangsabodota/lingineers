@@ -3,7 +3,20 @@
 
 {% block content %}
 <p>"This is the home page"</p>
+{% if app_list %} 
+  	<div class="card-deck">
+           
+	{% for app in app_list %}
 
+        {% include 'home/app_card.html' %}
+
+       
+	{% endfor%}
+	</div>
+{% else %}
+	<p>No app</p>
+
+{% endif%}
 
 {% endblock %}
 

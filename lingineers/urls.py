@@ -19,6 +19,6 @@ from django.conf.urls import url, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url('vowelchart', include('vowelchart.urls')),
+    path('', include('vowelchart.urls')),
     path('', include('home.urls')),
 ]

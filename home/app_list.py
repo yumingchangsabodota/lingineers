@@ -1,0 +1,1 @@
+app_list = [{'app_name':'Vowel Chart', 'url':'/vowelchart/'}]

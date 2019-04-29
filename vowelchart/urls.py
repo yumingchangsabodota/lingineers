@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.conf.urls import include, url
 from . import views
 
+
 urlpatterns = [
-    url(r'^$',views.vowelchart, name='vowelchart'),
+    url(r'^vowelchart/$',views.vowelchart, name='vowelchart'),
 ]
