@@ -3,5 +3,53 @@
 {% block content %}
 
 <p>Vowel Chart</p>
+<p id = 'formants'>{{formants}}</p>
+<p id = 'x_y'>{{x_y}}</p>
+
+<canvas id="myChart"></canvas>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var endpoint = /get-formants/
+		var formants = '{{formants}}'
+
+		$.ajax({
+			method:'GET',
+			url: endpoint,
+				success: function(data){
+					console.log(data)
+					var ctx = document.getElementById("myChart");
+					var scatterChart = new Chart(ctx, {
+									    type: 'scatter',
+									    data: {
+									        datasets: [{
+									            label: 'Scatter Dataset',
+									            data: data.data
+									        }]
+									    },
+									    options: {
+									        scales: {
+									            xAxes: [{
+									                type: 'linear',
+									                position: 'bottom'
+									            }]
+									        }
+									    }
+									});
+				},
+				error: function(error){
+					console.log("error")
+					console.log(error)
+				}
+			})
+
+	});
+
+
+
+</script>
 
 {% endblock %}
+
+
+

@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import include, url
+from .views import VowelChart
 from . import views
 
 
 urlpatterns = [
-    url(r'^vowelchart/$',views.vowelchart, name='vowelchart'),
+    url(r'^vowelchart/$',VowelChart.as_view(), name='vowelchart'),
+    url(r'^get-formants/$',views.getFormants, name='get_formants'),
 ]
