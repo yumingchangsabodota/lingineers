@@ -28,25 +28,8 @@
 									        }]
 									    },
 									    options: {
-									    	events: false,
-									    	animation: {duration:0, 
-									    			onComplete: function () {
-									                var self = this;
-									                var elementsArray = [];
-									                Chart.helpers.each(self.data.datasets, function (dataset, datasetIndex) {
-									                    Chart.helpers.each(dataset.metaData, function (element, index) {
-									                        var tooltip = new Chart.Tooltip({
-									                            _chart: self.chart,
-									                            _data: self.data,
-									                            _options: self.options,
-									                            _active: [element]
-									                        }, self);
 
-									                        tooltip.update();
-									                        tooltip.transition(Chart.helpers.easingEffects.linear).draw();
-									                    }, self);
-									                }, self);
-									            }},
+									    		
 									    	responsive: true,
 									        scales: {
 									            xAxes: [{
@@ -68,7 +51,7 @@
 									                
 									            }]
 									        },
-/*
+
 									     tooltips:{
 									     	callbacks:{
 									     		label: function(tooltipItem, data) {
@@ -78,7 +61,7 @@
 									     }
 
 									    },
-									    */
+									    
 
 									}
 						};
