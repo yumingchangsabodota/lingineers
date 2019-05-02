@@ -6,7 +6,7 @@
 <p id = 'formants'>{{formants}}</p>
 <p id = 'x_y'>{{x_y}}</p>
 
-<canvas id="myChart"></canvas>
+<canvas id="myChart" width="1200" height="600"></canvas>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -74,7 +74,7 @@
 									    data: data,
 									    options: {
 									    	showAllTooltips: true,
-									    	responsive: true,
+									    	responsive: false,
 									        scales: {
 									            xAxes: [{
 									                type: 'linear',
@@ -94,8 +94,13 @@
 									                
 									            }]
 									        },
-
-									}
+									        layout:{
+									        	padding:{
+									        		left:300,
+									        		bottom: 50
+									        	}
+									        }
+										}
 						});
 				},
 				error: function(error){
