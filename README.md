@@ -11,3 +11,6 @@ my voice analysis: https://github.com/Shahabks/my-voice-analysis
 pyAudio analysis: https://github.com/tyiannak/pyAudioAnalysis
 
 pydub: https://github.com/jiaaro/pydub
+
+
+
