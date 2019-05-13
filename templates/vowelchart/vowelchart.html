@@ -6,6 +6,10 @@
 <p id = 'formants'>{{formants}}</p>
 <p id = 'x_y'>{{x_y}}</p>
 
+<button type="button" id="startRecord" >Start Recording</button>
+<button type="button" id="stopRecord">Stop Recording</button>
+<button type="button" id="playRecord">Play</button>
+
 <canvas id="myChart" width="1200" height="600"></canvas>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
@@ -137,7 +141,7 @@ hover tooltip
 <script>
 var mic;
 function setup(){
-createCanvas(200,200);
+  createCanvas(200,200);
   mic = new p5.AudioIn()
   mic.start();
 }

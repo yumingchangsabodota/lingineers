@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('vowelchart.urls')),
     path('', include('home.urls')),
+    path('', include('FFT.urls')),
 ]
