@@ -7,13 +7,14 @@
 <p id = 'x_y'>{{x_y}}</p>
 
 <canvas id="myChart" width="1200" height="600"></canvas>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		var endpoint = /get-formants/
 		var formants = '{{formants}}'
-
-
 
 		$.ajax({
 			method:'GET',
@@ -32,7 +33,6 @@
 					chart.pluginTooltips = [];
 					chart.config.data.datasets.forEach(function (dataset, i) {
 						chart.getDatasetMeta(i).data.forEach(function (sector, j) {
-							console.log(sector)
 							chart.pluginTooltips.push(new Chart.Tooltip({
 								_chart: chart.chart,
 								_chartInstance: chart,
@@ -68,7 +68,6 @@
 				}
 			}
 		});
-					console.log(data)
 					var scatterChart = new Chart(ctx, {
 										type: 'scatter',
 									    data: data,
@@ -134,6 +133,19 @@ hover tooltip
     },
 */
 
+</script>
+<script>
+var mic;
+function setup(){
+createCanvas(200,200);
+  mic = new p5.AudioIn()
+  mic.start();
+}
+function draw(){
+  background(0);
+  micLevel = mic.getLevel();
+  ellipse(100,100, micLevel*500, micLevel*500);
+}	
 
 </script>
 
