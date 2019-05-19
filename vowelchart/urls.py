@@ -22,4 +22,5 @@ from . import views
 urlpatterns = [
     url(r'^vowelchart/$',VowelChart.as_view(), name='vowelchart'),
     url(r'^get-formants/$',views.getFormants, name='get_formants'),
+    url(r'^formant-analysis/$',views.formant_analysis, name='formant_analysis'),
 ]

@@ -1,7 +1,7 @@
 {% extends "header.html" %}
 
 {% block content %}
-
+{% csrf_token %}
 <p>Vowel Chart</p>
 <p id = 'formants'>{{formants}}</p>
 <p id = 'x_y'>{{x_y}}</p>
@@ -9,13 +9,19 @@
 <button type="button" id="startRecord" onclick="startRecord()">Start Recording</button>
 <button type="button" id="stopRecord" onclick="stopRecord()">Stop Recording</button>
 <button type="button" id="playRecord" onclick="playRecord()">Play</button>
+<button type="button" id="toFormant">toFormant</button>
+<p id='stat_text'></p>
+<p id='formant_text'></p>
 
 <canvas id="myChart" width="1200" height="600"></canvas>
+
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.js"></script>
 {% load staticfiles %}
 <script type="text/javascript">
+
+
 	$(document).ready(function(){
 		var endpoint = /get-formants/
 		var formants = '{{formants}}'
@@ -84,7 +90,9 @@
 									                position: 'top',
 									                ticks:{
 									                	beginAtZero: true,
-									                	reverse: true
+									                	reverse: true,
+									                	suggestedMin: 0,
+									                	suggestedMax: 3000
 									                }
 									            }],
 									            yAxes:[{
@@ -92,7 +100,9 @@
 									                position: 'right',
 									                ticks:{
 									                	beginAtZero: true,
-									                	reverse: true
+									                	reverse: true,
+									                	suggestedMin: 0,
+									                	suggestedMax: 1000
 									                }
 									                
 									            }]
@@ -139,6 +149,7 @@ hover tooltip
 
 </script>
 <script>
+var stat_text = document.getElementById("stat_text");
 function setup() {
 
   // create an audio in
@@ -155,6 +166,7 @@ function setup() {
 
   // create an empty sound file that we will use to playback the recording
   soundFile = new p5.SoundFile();
+
 }
 
 function startRecord() {
@@ -162,19 +174,51 @@ function startRecord() {
   if (mic.enabled) {
     // Tell recorder to record to a p5.SoundFile which we will use for playback
     recorder.record(soundFile);
+    stat_text.textContent = "Recording...";
 
   }
 }
 
 function stopRecord(){
 	recorder.stop(); // stop recorder, and send the result to soundFile
+	stat_text.textContent = "Recording stopped";
 
 	//saveSound(soundFile, "{% static 'vowelchart/recordings/myRecordings.wav' %}"); // save file
 }
 
 function playRecord(){
+	stat_text.textContent = "Playing Recording...";
 	soundFile.play(); // play the result!
+	console.log(soundFile.buffer);
+
 }
+$(document).ready(function(){
+		$("#toFormant").on('click', function(event){
+				var soundBlob = soundFile.getBlob();
+				console.log(soundBlob);
+    			var fd = new FormData();
+    			fd.append('audio', soundBlob);
+    			fd.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+				event.preventDefault();
+				stat_text.textContent = "Analyzing Formants";
+				$.ajax({
+					url: '/formant-analysis/',
+					method: 'POST',
+					data: fd,
+        			contentType: false,
+        			processData: false,
+					success: function(data){
+						console.log(data)
+						console.log("success");
+						console.log("successful replace");
+					},
+					error: function(errorData){
+						console.log("error");
+						console.log(errorData);
+					}
+				})
+			})
+		})
 </script>
 
 {% endblock %}
