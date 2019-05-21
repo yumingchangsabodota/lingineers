@@ -46,6 +46,15 @@ $(document).ready(function(){
         			processData: false,
 					success: function(data){
 						console.log(data)
+						vowels_formants_list.push(data['data'])
+						if("{{vowel.next}}"=='to-formants'){
+							console.log("last one")
+							var formants_data = JSON.stringify(vowels_formants_list)
+							stat_text.textContent = formants_data;
+
+
+						}
+						console.log(vowels_formants_list)
 						console.log("success");
 						console.log("successful replace");
 					},

@@ -40,6 +40,6 @@ def formant_analysis(request):
 			analyzer = Formant_analyzer()
 			analyzer.getFormants(file)
 			answer = analyzer.formants
-			data = {'data':answer}
+			data = {'data':{'vowel':vowel, 'formants':answer}}
 
 			return JsonResponse(data)

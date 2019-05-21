@@ -53,7 +53,7 @@ class Formant_analyzer():
 		frqs = sorted(angz * (Fs / (2 * math.pi)))
 
 		frqs = [fr for fr in frqs if fr > 0 and not fr<300]
-		frqs = frqs[:6]
+		frqs = frqs[:3]
 
 		frqs = [round(fr,2) for fr in frqs]
 		self.formants = frqs
