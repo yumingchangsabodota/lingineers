@@ -11,8 +11,13 @@ class VowelChart(View):
 	def get(self, request, *args, **kwargs):
 		formants = Formants.formants
 		x_y = Formants.x_y
+		vowel_list_action = [{'vowel':'a','action':'Next', 'next':'e', 'modaltitle':'Record Vowel a'},
+							{'vowel':'e','action':'Next', 'next':'i', 'modaltitle':'Record Vowel e'},
+							{'vowel':'i','action':'Next', 'next':'o', 'modaltitle':'Record Vowel i'},
+							{'vowel':'o','action':'Next', 'next':'u', 'modaltitle':'Record Vowel o'},
+							{'vowel':'u','action':'Process', 'next':'to-formants', 'modaltitle':'Record Vowel u'}]
 		
-		return render(request, 'vowelchart/vowelchart.html', {'formants':formants, 'x_y':x_y})
+		return render(request, 'vowelchart/vowelchart.html', {'formants':formants, 'x_y':x_y, 'vowel_list_action':vowel_list_action})
 
 def getFormants(request):
 	x_y = Formants.x_y

@@ -6,6 +6,8 @@
 <p id = 'formants'>{{formants}}</p>
 <p id = 'x_y'>{{x_y}}</p>
 
+<button type="button" id="startFormantAnalysis" class="btn btn-primary" data-toggle="modal" data-target="#modal_a">Start Formant Analysis</button>
+
 <button type="button" id="startRecord" onclick="startRecord()">Start Recording</button>
 <button type="button" id="stopRecord" onclick="stopRecord()">Stop Recording</button>
 <button type="button" id="playRecord" onclick="playRecord()">Play</button>
@@ -19,6 +21,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.js"></script>
 {% load staticfiles %}
+
+{% if vowel_list_action %} 
+<script>
+	var vowels_recording_blobs = []
+
+</script>
+	{% for vowel in vowel_list_action %}
+		{% include 'modals/vowelchart/record_audio.html' %}
+	{% endfor%}
+{%endif%}
+
 <script type="text/javascript">
 
 
@@ -149,27 +162,29 @@ hover tooltip
 
 </script>
 <script>
+
 var stat_text = document.getElementById("stat_text");
-function setup() {
 
-  // create an audio in
+function setup(){
+// create an audio in
+
   mic = new p5.AudioIn();
-
-  // users must manually enable their browser microphone for recording to work properly!
+    // users must manually enable their browser microphone for recording to work properly!
   mic.start();
-
-  // create a sound recorder
+	// create a sound recorder
   recorder = new p5.SoundRecorder();
-
   // connect the mic to the recorder
   recorder.setInput(mic);
-
-  // create an empty sound file that we will use to playback the recording
-  soundFile = new p5.SoundFile();
 
 }
 
 function startRecord() {
+	if (getAudioContext().state !== 'running') {
+    getAudioContext().resume();
+	}
+   
+  // create an empty sound file that we will use to playback the recording
+  soundFile = new p5.SoundFile();
   // use the '.enabled' boolean to make sure user enabled the mic (otherwise we'd record silence)
   if (mic.enabled) {
     // Tell recorder to record to a p5.SoundFile which we will use for playback
@@ -180,6 +195,7 @@ function startRecord() {
 }
 
 function stopRecord(){
+	
 	recorder.stop(); // stop recorder, and send the result to soundFile
 	stat_text.textContent = "Recording stopped";
 
@@ -219,6 +235,7 @@ $(document).ready(function(){
 				})
 			})
 		})
+
 </script>
 
 {% endblock %}

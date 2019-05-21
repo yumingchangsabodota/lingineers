@@ -1,0 +1,61 @@
+
+
+<div class="modal fade" id='modal_{{vowel.vowel}}' role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{vowel.modaltitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>{{vowel.vowel}}</p>
+
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" onclick="startRecord()">Record</button>
+      	<button type="button" class="btn btn-primary" onclick="stopRecord()">Stop</button>
+      	<button type="button" class="btn btn-primary" onclick="playRecord()">Play</button>
+
+        <button type="button" class="btn btn-primary" id = "modal-action-{{vowel.next}}" data-toggle="modal" data-target="#modal_{{vowel.next}}" data-dismiss="modal">{{vowel.action}}</button>
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+	$(document).ready(function(){
+				//Post request for submitting proposal
+				// needs to be inside this html
+			$(".make-proposal-form").submit(function(event){
+				event.preventDefault(); //do not refresh page
+				console.log("form submitted");
+				var thisForm = $(this);
+				var actionEndpoint = thisForm.attr("action");
+				var httpMethod = thisForm.attr("method");
+				var formData = thisForm.serialize();
+
+				$.ajax({
+					url: actionEndpoint,
+					method: httpMethod,
+					data: formData,
+					success: function(data){
+						console.log("success");
+						console.log(data);
+						$('#makeProposalModal').modal('hide');
+						$(".make-proposal-form")[0].reset(); //dismiss the request modal and clear it
+						window.location = '/my-proposals/';  //redirect to my request page
+					},
+					error: function(errorData){
+						console.log("error");
+						console.log(errorData);
+
+					}
+				})
+			})
+		})
+
+</script>
