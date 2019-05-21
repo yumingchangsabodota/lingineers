@@ -20,42 +20,40 @@
 
         <button type="button" class="btn btn-primary" id = "modal-action-{{vowel.next}}" data-toggle="modal" data-target="#modal_{{vowel.next}}" data-dismiss="modal">{{vowel.action}}</button>
 
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-	$(document).ready(function(){
-				//Post request for submitting proposal
-				// needs to be inside this html
-			$(".make-proposal-form").submit(function(event){
-				event.preventDefault(); //do not refresh page
-				console.log("form submitted");
-				var thisForm = $(this);
-				var actionEndpoint = thisForm.attr("action");
-				var httpMethod = thisForm.attr("method");
-				var formData = thisForm.serialize();
-
+$(document).ready(function(){
+		$("#modal-action-{{vowel.next}}").on('click', function(event){
+				var soundBlob = soundFile.getBlob();
+				var this_vowel = "{{vowel.vowel}}"
+				console.log(soundBlob);
+    			var fd = new FormData();
+    			fd.append('audio', soundBlob);
+    			fd.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+    			fd.append('vowel', this_vowel);
+				event.preventDefault();
+				stat_text.textContent = "Analyzing Formants";
 				$.ajax({
-					url: actionEndpoint,
-					method: httpMethod,
-					data: formData,
+					url: '/formant-analysis/',
+					method: 'POST',
+					data: fd,
+        			contentType: false,
+        			processData: false,
 					success: function(data){
+						console.log(data)
 						console.log("success");
-						console.log(data);
-						$('#makeProposalModal').modal('hide');
-						$(".make-proposal-form")[0].reset(); //dismiss the request modal and clear it
-						window.location = '/my-proposals/';  //redirect to my request page
+						console.log("successful replace");
 					},
 					error: function(errorData){
 						console.log("error");
 						console.log(errorData);
-
 					}
 				})
 			})
 		})
-
 </script>

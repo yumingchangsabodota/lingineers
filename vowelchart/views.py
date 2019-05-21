@@ -28,9 +28,11 @@ def formant_analysis(request):
 
 	
 	if request.method == 'POST':
-		print('Inside imageVerify')
+
 		print(request)
 		myform = forms.Form(request.POST, request.FILES)
+		vowel = request.POST.get('vowel', None)
+		print(vowel)
 		print("Done loading form")
 		if myform.is_valid():
 			print(myform.files)
