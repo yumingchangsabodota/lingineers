@@ -8,7 +8,6 @@
 
 <button type="button" id="startFormantAnalysis" class="btn btn-primary" data-toggle="modal" data-target="#modal_a">Start Formant Analysis</button>
 
-<button type="button" id="toFormant">toFormant</button>
 <p id='stat_text'></p>
 <p id='formant_text'></p>
 
@@ -30,7 +29,6 @@
 {%endif%}
 
 <script type="text/javascript">
-
 
 	$(document).ready(function(){
 		var endpoint = /get-formants/
@@ -158,83 +156,8 @@ hover tooltip
 */
 
 </script>
-<script>
-var vowels_formants_list = []
+<script src = "{% static 'js/vowelchart.js' %}"></script>
 
-var stat_text = document.getElementById("stat_text");
-
-function setup(){
-// create an audio in
-
-  mic = new p5.AudioIn();
-    // users must manually enable their browser microphone for recording to work properly!
-  mic.start();
-	// create a sound recorder
-  recorder = new p5.SoundRecorder();
-  // connect the mic to the recorder
-  recorder.setInput(mic);
-
-}
-
-function startRecord() {
-	if (getAudioContext().state !== 'running') {
-    getAudioContext().resume();
-	}
-   
-  // create an empty sound file that we will use to playback the recording
-  soundFile = new p5.SoundFile();
-  // use the '.enabled' boolean to make sure user enabled the mic (otherwise we'd record silence)
-  if (mic.enabled) {
-    // Tell recorder to record to a p5.SoundFile which we will use for playback
-    recorder.record(soundFile);
-    stat_text.textContent = "Recording...";
-
-  }
-}
-
-function stopRecord(){
-	
-	recorder.stop(); // stop recorder, and send the result to soundFile
-	stat_text.textContent = "Recording stopped";
-
-	//saveSound(soundFile, "{% static 'vowelchart/recordings/myRecordings.wav' %}"); // save file
-}
-
-function playRecord(){
-	stat_text.textContent = "Playing Recording...";
-	soundFile.play(); // play the result!
-	console.log(soundFile.buffer);
-
-}
-$(document).ready(function(){
-		$("#toFormant").on('click', function(event){
-				var soundBlob = soundFile.getBlob();
-				console.log(soundBlob);
-    			var fd = new FormData();
-    			fd.append('audio', soundBlob);
-    			fd.append('csrfmiddlewaretoken', '{{ csrf_token }}');
-				event.preventDefault();
-				stat_text.textContent = "Analyzing Formants";
-				$.ajax({
-					url: '/formant-analysis/',
-					method: 'POST',
-					data: fd,
-        			contentType: false,
-        			processData: false,
-					success: function(data){
-						console.log(data)
-						console.log("success");
-						console.log("successful replace");
-					},
-					error: function(errorData){
-						console.log("error");
-						console.log(errorData);
-					}
-				})
-			})
-		})
-
-</script>
 
 {% endblock %}
 
