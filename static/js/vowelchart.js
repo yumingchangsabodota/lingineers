@@ -47,15 +47,18 @@ function playRecord(){
 
 }
 
-function addData(chart, label, data) {
-    chart.data.labels.push(label);
-    chart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-    });
+function addData(chart, label, data){
+	console.log('adding');
+    chart.data.labels = label;
+    chart.data.datasets[0].data = data;
+
+
     chart.update();
+    console.log(chart.data);
+    console.log('add done');
 }
 
-function removeData(chart) {
+function removeData(chart, label, data) {
 
     chart.data.labels = [];
     chart.data.datasets.forEach((dataset) => {

@@ -52,8 +52,10 @@
 							console.log("last one")
 							var formants_data = JSON.stringify(vowels_formants_list)
 							stat_text.textContent = formants_data;
-							removeData(scatterChart);
-
+							removeData(scatterChart)
+    						scatterChart.data.labels = vowels_formants_list['labels'];
+    						scatterChart.data.datasets[0].data = vowels_formants_list['data'];
+    						scatterChart.update();
 						}
 						console.log(vowels_formants_list)
 						console.log("success");
