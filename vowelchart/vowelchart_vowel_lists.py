@@ -1,6 +1,15 @@
 
 
-class Formants():
+class Vowel_Lists():
+
+	vowel_lists = {
+					'english':
+					[{'vowel':'a','action':'Next', 'next':'e'},
+					{'vowel':'e','action':'Next', 'next':'i'},
+					{'vowel':'i','action':'Next', 'next':'o'},
+					{'vowel':'o','action':'Next', 'next':'u'},
+					{'vowel':'u','action':'Process', 'next':'to-formants'}]
+					}
 
 	formants = {
 		'i':{'f1':342,'f2':2322},

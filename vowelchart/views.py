@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django import forms
 from django.views.generic import View
-from vowelchart.dummy_formants import Formants
+from vowelchart.vowelchart_vowel_lists import Vowel_Lists
 from django.http import JsonResponse
 from vowelchart.formant_analysis import Formant_analyzer
 import json
@@ -9,18 +9,15 @@ import json
 
 class VowelChart(View):
 	def get(self, request, *args, **kwargs):
-		formants = Formants.formants
-		x_y = Formants.x_y
-		vowel_list_action = [{'vowel':'a','action':'Next', 'next':'e', 'modaltitle':'Record Vowel a'},
-							{'vowel':'e','action':'Next', 'next':'i', 'modaltitle':'Record Vowel e'},
-							{'vowel':'i','action':'Next', 'next':'o', 'modaltitle':'Record Vowel i'},
-							{'vowel':'o','action':'Next', 'next':'u', 'modaltitle':'Record Vowel o'},
-							{'vowel':'u','action':'Process', 'next':'to-formants', 'modaltitle':'Record Vowel u'}]
+
+		english_vowel_list = Vowel_Lists.vowel_lists['english']
+		formants = Vowel_Lists.formants
+		x_y = Vowel_Lists.x_y
 		
-		return render(request, 'vowelchart/vowelchart.html', {'formants':formants, 'x_y':x_y, 'vowel_list_action':vowel_list_action})
+		return render(request, 'vowelchart/vowelchart.html', {'formants':formants, 'x_y':x_y, 'english_vowel_list':english_vowel_list})
 
 def getFormants(request):
-	x_y = Formants.x_y
+	x_y = Vowel_Lists.x_y
 	
 	return JsonResponse(x_y)
 

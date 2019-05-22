@@ -6,7 +6,7 @@
 <p id = 'formants'>{{formants}}</p>
 <p id = 'x_y'>{{x_y}}</p>
 
-<button type="button" id="startFormantAnalysis" class="btn btn-primary" data-toggle="modal" data-target="#modal_a">Start Formant Analysis</button>
+<button type="button" id="startFormantAnalysis" class="btn btn-primary" data-toggle="modal" data-target="#modal_a">Get My VowelChart</button>
 
 <p id='stat_text'></p>
 <p id='formant_text'></p>
@@ -18,12 +18,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.js"></script>
 {% load staticfiles %}
 
-{% if vowel_list_action %} 
+{% if english_vowel_list %} 
 <script>
 	var vowels_recording_blobs = []
 
 </script>
-	{% for vowel in vowel_list_action %}
+	{% for vowel in english_vowel_list %}
 		{% include 'modals/vowelchart/record_audio.html' %}
 	{% endfor%}
 {%endif%}
