@@ -1,4 +1,4 @@
-var vowels_formants_list = []
+var vowels_formants_list = {'data':[],'labels':[]}
 
 
 var stat_text = document.getElementById("stat_text");
@@ -45,4 +45,23 @@ function playRecord(){
 	soundFile.play(); // play the result!
 	console.log(soundFile.buffer);
 
+}
+
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+function removeData(chart) {
+
+    chart.data.labels = [];
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data = [];
+    });
+    chart.update();
+    console.log(chart.data);
+    console.log('remove done');
 }

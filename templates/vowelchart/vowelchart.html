@@ -29,7 +29,7 @@
 {%endif%}
 
 <script type="text/javascript">
-
+	var scatterChart;
 	$(document).ready(function(){
 		var endpoint = /get-formants/
 		var formants = '{{formants}}'
@@ -86,7 +86,7 @@
 				}
 			}
 		});
-					var scatterChart = new Chart(ctx, {
+					scatterChart = new Chart(ctx, {
 										type: 'scatter',
 									    data: data,
 									    options: {

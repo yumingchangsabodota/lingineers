@@ -45,13 +45,14 @@
         			contentType: false,
         			processData: false,
 					success: function(data){
-						console.log(data)
-						vowels_formants_list.push(data['data'])
+						console.log(data);
+						vowels_formants_list['data'].push({'y':data.data.formants[0],'x':data.data.formants[1]});
+						vowels_formants_list['labels'].push(data.data.vowel);
 						if("{{vowel.next}}"=='to-formants'){
 							console.log("last one")
 							var formants_data = JSON.stringify(vowels_formants_list)
 							stat_text.textContent = formants_data;
-
+							removeData(scatterChart);
 
 						}
 						console.log(vowels_formants_list)
