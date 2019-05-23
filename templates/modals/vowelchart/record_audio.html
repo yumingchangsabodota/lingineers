@@ -49,7 +49,7 @@
 						vowels_formants_list['labels'].push(data.data.vowel);
 						if("{{vowel.next}}"=='to-formants'){
 							var formants_data = JSON.stringify(vowels_formants_list)
-							//stat_text.textContent = formants_data;
+							stat_text.textContent = "Done Analyzing!";
 							removeData(scatterChart);
     						scatterChart.data.labels = vowels_formants_list['labels'];
     						scatterChart.data.datasets[0].data = vowels_formants_list['data'];
