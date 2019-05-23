@@ -17,9 +17,16 @@ class Formant_analyzer():
 
 		x = numpy.fromstring(x, 'Int16')
 
+		file_len = len(x)
+		file_max = max(x)
+		i, = numpy.where(x == max(x))
+		i = int(i)
+
 		# Get Hamming window.
-		I0 = int(round(len(x)*0.25))
-		Iend = int(round(len(x)*0.8))
+		I0 = int(round(i*0.5))
+
+		Iend = int(round((file_len-i)*0.5)+i)
+
 		N = len(x[I0:Iend])
 		#N = len(x)
 		x = x[I0:Iend]
