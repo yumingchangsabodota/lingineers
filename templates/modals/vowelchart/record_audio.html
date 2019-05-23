@@ -31,7 +31,6 @@
 		$("#modal-action-{{vowel.next}}").on('click', function(event){
 				var soundBlob = soundFile.getBlob();
 				var this_vowel = "{{vowel.vowel}}"
-				console.log(soundBlob);
     			var fd = new FormData();
     			fd.append('audio', soundBlob);
     			fd.append('csrfmiddlewaretoken', '{{ csrf_token }}');
@@ -49,17 +48,14 @@
 						vowels_formants_list['data'].push({'y':data.data.formants[0],'x':data.data.formants[1]});
 						vowels_formants_list['labels'].push(data.data.vowel);
 						if("{{vowel.next}}"=='to-formants'){
-							console.log("last one")
 							var formants_data = JSON.stringify(vowels_formants_list)
 							stat_text.textContent = formants_data;
-							removeData(scatterChart)
+							removeData(scatterChart);
     						scatterChart.data.labels = vowels_formants_list['labels'];
     						scatterChart.data.datasets[0].data = vowels_formants_list['data'];
     						scatterChart.update();
 						}
-						console.log(vowels_formants_list)
-						console.log("success");
-						console.log("successful replace");
+
 					},
 					error: function(errorData){
 						console.log("error");

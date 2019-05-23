@@ -11,15 +11,13 @@ class VowelChart(View):
 	def get(self, request, *args, **kwargs):
 
 		english_vowel_list = Vowel_Lists.vowel_lists['english']
-		formants = Vowel_Lists.formants
-		x_y = Vowel_Lists.x_y
 		
-		return render(request, 'vowelchart/vowelchart.html', {'formants':formants, 'x_y':x_y, 'english_vowel_list':english_vowel_list})
+		return render(request, 'vowelchart/vowelchart.html', {'english_vowel_list':english_vowel_list})
 
 def getFormants(request):
-	x_y = Vowel_Lists.x_y
+	dummy_formants = Vowel_Lists.dummy_formants
 	
-	return JsonResponse(x_y)
+	return JsonResponse(dummy_formants)
 
 def formant_analysis(request):
 

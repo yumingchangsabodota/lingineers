@@ -48,14 +48,12 @@ function playRecord(){
 }
 
 function addData(chart, label, data){
-	console.log('adding');
     chart.data.labels = label;
     chart.data.datasets[0].data = data;
 
 
     chart.update();
-    console.log(chart.data);
-    console.log('add done');
+
 }
 
 function removeData(chart, label, data) {
@@ -65,6 +63,5 @@ function removeData(chart, label, data) {
         dataset.data = [];
     });
     chart.update();
-    console.log(chart.data);
-    console.log('remove done');
 }
+
