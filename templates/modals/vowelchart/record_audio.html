@@ -49,12 +49,18 @@
 						vowels_formants_list['labels'].push(data.data.vowel);
 						if("{{vowel.next}}"=='to-formants'){
 							var formants_data = JSON.stringify(vowels_formants_list)
-							stat_text.textContent = formants_data;
+							//stat_text.textContent = formants_data;
 							removeData(scatterChart);
     						scatterChart.data.labels = vowels_formants_list['labels'];
     						scatterChart.data.datasets[0].data = vowels_formants_list['data'];
     						scatterChart.update();
-						}
+    						for(i = 0; i<vowels_formants_list['labels'].length; i++){
+    							vowel = vowels_formants_list['labels'][i];
+    							f1 = vowels_formants_list['data'][i].y;
+    							f2 = vowels_formants_list['data'][i].x;
+    							$("#formant-table-body").append("<tr> <td>"+vowel+"</td><td>"+f1+"</td><td>"+f2+"</td></tr>")
+								}
+							}
 
 					},
 					error: function(errorData){

@@ -9,8 +9,26 @@
 <p id='stat_text'></p>
 <p id='formant_text'></p>
 
-<canvas id="myChart" width="1200" height="600"></canvas>
-
+<div class="container-fluid">
+	<div class="row justify-content-start">
+		<div class="col">
+			<canvas id="myChart" width="1000" height="600"></canvas>
+		</div>
+		<div class="col">
+			<table class="table">
+			  <thead class="thead-dark">
+			    <tr>
+			      <th scope="col">Vowel</th>
+			      <th scope="col">F1</th>
+			      <th scope="col">F2</th>
+			    </tr>
+			  </thead>
+			  <tbody id = "formant-table-body">
+			  </tbody>
+			</table>
+		</div>
+	</div>
+</div>
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.js"></script>
@@ -115,7 +133,7 @@
 									        },
 									        layout:{
 									        	padding:{
-									        		left:300,
+									        		left:30,
 									        		bottom: 50
 									        	}
 									        },
