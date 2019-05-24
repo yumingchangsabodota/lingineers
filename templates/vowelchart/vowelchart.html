@@ -2,10 +2,16 @@
 
 {% block content %}
 {% csrf_token %}
-<p>Vowel Chart</p>
 
-<button type="button" id="startFormantAnalysis" class="btn btn-primary" data-toggle="modal" data-target="#modal_a">Get My VowelChart</button>
-
+<div class="container-fluid">
+	<div class="row justify-content-start">
+			<h2>Vowel Chart
+		<span>
+			<button type="button" id="startFormantAnalysis" class="btn btn-primary" data-toggle="modal" data-target="#modal_a">Get My VowelChart</button>
+		</span>
+		</h2>
+</div>
+</div>
 <p id='stat_text'></p>
 <p id='formant_text'></p>
 
