@@ -1,9 +1,11 @@
 {% extends "header.html" %}
 
 {% block content %}
-
+<div class='container-fluid pt-3'>
 <p>FFT</p>
+<div class='pr-5' id = "canvas-holder">
 
+</div>
 {% load staticfiles %}
 
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
@@ -38,11 +40,13 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(1500, 500);
+  var canv = createCanvas(1200, 500);
+  canv.parent('canvas-holder')
   colorMode(HSB);
   angleMode(DEGREES);
   button = createButton('toggle');
   button.mousePressed(toggleSong);
+  button.parent('canvas-holder')
   song.play();
   fft = new p5.FFT(0.9, 512);
   w = width/512;

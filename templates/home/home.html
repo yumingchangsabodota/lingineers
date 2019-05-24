@@ -2,9 +2,10 @@
 
 
 {% block content %}
-<p>"This is the home page"</p>
+
+<div class='container-fluid pt-5'>
 {% if app_list %} 
-  	<div class="card-deck">
+  	
            
 	{% for app in app_list %}
 
@@ -12,11 +13,11 @@
 
        
 	{% endfor%}
-	</div>
+	
 {% else %}
 	<p>No app</p>
 
 {% endif%}
-
+</div>
 {% endblock %}
 
