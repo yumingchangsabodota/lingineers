@@ -3,6 +3,7 @@ import wave
 import math
 from scipy.signal import lfilter, hamming
 from audiolazy.lazy_lpc import lpc
+from scipy.io.wavfile import write
 
 class Formant_analyzer():
 	formants = []
@@ -23,14 +24,22 @@ class Formant_analyzer():
 		i = int(i)
 
 		# Get Hamming window.
-		I0 = int(round(i*0.5))
+		I0 = int(round(i*0.36))
 
-		Iend = int(round((file_len-i)*0.5)+i)
+		Iend = int(round((file_len-i)*0.63)+i)
 
 		N = len(x[I0:Iend])
 		#N = len(x)
 		x = x[I0:Iend]
 		w = numpy.hamming(N)
+
+		sps = 44100
+		originalfile = x
+		write('originalfile.wav', sps, originalfile)
+
+		tmpfile = x[I0:Iend]
+		write('tmpfile.wav', sps, tmpfile)
+
 
 
 
