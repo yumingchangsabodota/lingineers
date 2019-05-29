@@ -29,6 +29,8 @@
 <script>
 	$(document).ready(function(){
 		$("#modal-action-{{vowel.next}}").on('click', function(event){
+
+        //saveSound(soundFile, 'mySoundfromjs.wav');
 				var soundBlob = soundFile.getBlob();
 				var this_vowel = "{{vowel.vowel}}"
     			var fd = new FormData();

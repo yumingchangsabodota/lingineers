@@ -10,37 +10,66 @@ class Formant_analyzer():
 
 	def getFormants(self, soundFile):
 		#spf = wave.open('hadYMC.wav', 'r')
+
 		spf = wave.open(soundFile, 'r')
+
+		print('spf type:'+str(type(spf)))
+
 		Fs = spf.getframerate()
+
+		print('Fs type:'+str(type(Fs)))
+	
 		dt = 1/Fs
 		# Get file as numpy array.
 		x = spf.readframes(-1)
 
-		x = numpy.fromstring(x, 'Int16')
+		print('x type:'+str(type(x)))
 
+		x = numpy.fromstring(x, 'Int16')
+		print('x type:'+str(type(x)))
+		
+		#remove the fourth byte
+		a = 3
+
+		newnump = numpy.delete(x,numpy.arange(len(x)/(a+1))*(a+1)+a)
+		#remove the third byte
+		b = 2
+
+		newnump = numpy.delete(newnump,numpy.arange(len(newnump)/(b+1))*(b+1)+b)
+
+		originalfile = newnump  #now the new numpy array is a mono sound
+		write('originalfile.wav', Fs, originalfile)
+
+		x = newnump
+
+		'''
 		file_len = len(x)
 		file_max = max(x)
-		i, = numpy.where(x == max(x))
-		i = int(i)
+		print(file_len)
+		print(file_max)
+		i = numpy.where(x == max(x))
+		print(i)
+		#i = int(i)
 
-		# Get Hamming window.
-		I0 = int(round(i*0.36))
 
-		Iend = int(round((file_len-i)*0.63)+i)
+		
+		I0 = int(round(file_max*1.5))
+
+		Iend = int(round((file_len-file_max)*0.63)+file_max)
 
 		N = len(x[I0:Iend])
-		#N = len(x)
 		x = x[I0:Iend]
-		w = numpy.hamming(N)
-
-		sps = 44100
-		originalfile = x
-		write('originalfile.wav', sps, originalfile)
+	
 
 		tmpfile = x[I0:Iend]
-		write('tmpfile.wav', sps, tmpfile)
+		write('tmpfile.wav', Fs, tmpfile)
+		'''
 
+		# Get Hamming window.
+		N = len(x)
 
+		print(x[0:5])
+		w = numpy.hamming(N)
 
 
 		# Apply window and high pass filter.
@@ -49,11 +78,8 @@ class Formant_analyzer():
 
 
 		# Get LPC.
-
 		ncoeff = int(2 + Fs / 1000)
 		A= lpc.autocor(x1, ncoeff)
-
-
 
 		# Get roots.
 		rts = numpy.roots(A.numerator)
@@ -73,6 +99,8 @@ class Formant_analyzer():
 
 		frqs = [round(fr,2) for fr in frqs]
 		self.formants = frqs
+
+
 
 
 

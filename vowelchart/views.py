@@ -5,6 +5,8 @@ from vowelchart.vowelchart_vowel_lists import Vowel_Lists
 from django.http import JsonResponse
 from vowelchart.formant_analysis import Formant_analyzer
 import json
+import wave
+
 # Create your views here.
 
 class VowelChart(View):
@@ -32,6 +34,7 @@ def formant_analysis(request):
 		if myform.is_valid():
 			print(myform.files)
 			file = myform.files['audio']
+
 			analyzer = Formant_analyzer()
 			analyzer.getFormants(file)
 			answer = analyzer.formants
