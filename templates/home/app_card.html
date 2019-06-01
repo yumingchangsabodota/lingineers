@@ -2,8 +2,9 @@
 
 {% load static %}
 <div class="col-sm px-5" style="max-width: 25rem;">
-<a href="{{app.url}}">
-	<img src="{% get_static_prefix %}images/{{ app.icon}}" class="img-fluid" alt="Responsive image">
+	<h2 class = "text-center">{{app.app_name}}</h2>
+	<a href="{{app.url}}">
+		<img src="{% get_static_prefix %}images/{{ app.icon}}" class="img-fluid" alt="Responsive image">
 
 	<!--<div class="card border-primary mb-3" style="max-width: 20rem;">
 	  <div class="card-header">{{app.app_name}}</div>
@@ -12,6 +13,5 @@
 	    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
 	  </div>
 	</div>-->
-</a>
-<h2 class = "text-center">{{app.app_name}}</h2>
+	</a>
 </div>
